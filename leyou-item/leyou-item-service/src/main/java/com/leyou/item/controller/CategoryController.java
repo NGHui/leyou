@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,8 +68,16 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     @PutMapping("edit") //@RequestParam中的name 和 value 没有区别
-    public ResponseEntity<Category> editCategory(@RequestParam(value = "id")Long id,@RequestParam(name = "name") String name){
+    public ResponseEntity<Void> editCategory(@RequestParam(value = "id")Long id,@RequestParam(name = "name") String name){
         this.categoryService.editCategory(id,name);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable(value = "id") Long id) {
+        this.categoryService.deleteCategory(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

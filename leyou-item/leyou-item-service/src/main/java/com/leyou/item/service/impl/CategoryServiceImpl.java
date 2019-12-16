@@ -5,6 +5,7 @@ import com.leyou.item.pojo.Category;
 import com.leyou.item.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.queryByBrandId(bid);
     }
 
+    @Transactional
     @Override
     public int addCategory(Category category) {
         System.out.println(category.getParentId());
@@ -70,5 +72,23 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category queryCategory(Long pid) {
         return this.categoryMapper.selectByPrimaryKey(pid);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCategory(Long id) {
+        int index = 0;
+        //先查看该节点是否是父节点
+        Category category = this.categoryMapper.selectByPrimaryKey(id);
+        if (category.getIsParent()) {
+            //是,先删除父节点,在删除子节点
+            //删除父节点
+            this.categoryMapper.deleteByPrimaryKey(id);
+            //删除子节点
+            this.categoryMapper.deleteByParentId(id);
+        }else {
+            //否,直接删除.
+             this.categoryMapper.deleteByPrimaryKey(id);
+        }
     }
 }

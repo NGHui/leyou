@@ -33,7 +33,7 @@ public interface BrandService {
 
     void updateBrand(Brand brand,Long cid);
 
-    void deleteBeand(Long id);
+    void deleteBrand(Long id);
 
 
 }

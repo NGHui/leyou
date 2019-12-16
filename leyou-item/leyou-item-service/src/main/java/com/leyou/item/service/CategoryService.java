@@ -46,4 +46,10 @@ public interface CategoryService {
      * @return
      */
     Category queryCategory(Long pid);
+
+    /**
+     * 通过id删除商品类目
+     * @param id
+     */
+    void deleteCategory(Long id);
 }

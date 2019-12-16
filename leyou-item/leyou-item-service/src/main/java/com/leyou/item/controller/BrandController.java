@@ -76,8 +76,8 @@ public class BrandController {
     @DeleteMapping("delete/{bid}")
     public ResponseEntity<Void> deleteBrand(@PathVariable("bid") Long bid){
         //http://api.leyou.com/api/item/brand/delete/1528
-        System.out.println(bid);
-        this.brandService.deleteBeand(bid);
+        //System.out.println(bid);
+        this.brandService.deleteBrand(bid);
         return ResponseEntity.ok().build();
     }
 }

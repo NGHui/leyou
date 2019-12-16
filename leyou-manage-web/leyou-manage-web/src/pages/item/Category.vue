@@ -44,10 +44,23 @@
               method: 'put',
               url: '/item/category/edit',
               data: this.$qs.stringify(data)
+          }).then(res=>{
+              this.$message.success("修改成功!")
+          }).catch(()=>{
+              this.$message.error("修改失败!")
           })
         //console.log("edit... id: " + id + ", name: " + name)
       },
       handleDelete(id) {
+          //let data = {id:id}
+          this.$http({
+              method: "delete",
+              url: "/item/category/delete/"+id,
+          }).then(res=>{
+              this.$message.success("删除成功!")
+          }).catch(()=>{
+              this.$message.error("删除失败!")
+          })
         console.log("delete ... " + id)
       },
       handleClick(node) {

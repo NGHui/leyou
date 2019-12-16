@@ -96,7 +96,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Transactional
     @Override
-    public void deleteBeand(Long id) {
+    public void deleteBrand(Long id) {
         //先删除商品表
         this.brandMapper.deleteByPrimaryKey(id);
         //再删除中间表

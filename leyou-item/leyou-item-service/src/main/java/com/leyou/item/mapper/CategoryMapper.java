@@ -1,6 +1,7 @@
 package com.leyou.item.mapper;
 
 import com.leyou.item.pojo.Category;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -39,4 +40,7 @@ public interface CategoryMapper extends Mapper<Category> {
 
    @Select("SELECT * FROM tb_category c WHERE c.parent_id=#{pid}")
     List<Category> queryAllByParentId(@Param("pid") Long pid);
+
+   @Delete("delete from tb_category where parent_id=#{pid}")
+    int deleteByParentId(@Param("pid") long pid);
 }
