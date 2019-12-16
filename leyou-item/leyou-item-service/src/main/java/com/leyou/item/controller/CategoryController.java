@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,8 +59,9 @@ public class CategoryController {
      * @return
      */
     @PostMapping("add")
-    public ResponseEntity<Category> addCategory(Category category){
-        //System.out.println(category.getName());
+    public ResponseEntity<Void> addCategory(Category category){
+        System.out.println(category.getId());
+        System.out.println(category.getParentId());
         int i = this.categoryService.addCategory(category);
         if (i>0){
             return ResponseEntity.status(HttpStatus.CREATED).build();

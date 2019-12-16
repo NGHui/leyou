@@ -32,5 +32,18 @@ public interface CategoryService {
      */
     int addCategory(Category category);
 
+    /**
+     * 编辑分类
+     * @param id
+     * @param name
+     * @return
+     */
     int editCategory(Long id, String name);
+
+    /**
+     * 通过pid查看数据库中是否有数据
+     * @param pid
+     * @return
+     */
+    Category queryCategory(Long pid);
 }

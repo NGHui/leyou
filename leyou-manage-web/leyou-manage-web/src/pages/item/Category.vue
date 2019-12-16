@@ -33,8 +33,8 @@
         }).catch(()=>{
             this.$message.error("添加节点失败!")
         })
-        //console.log("add .... ");
-        //console.log(node);
+        console.log("add .... ");
+        console.log(node);
       },
       handleEdit(id, name) {
           let data = {id:id,name:name}
@@ -52,7 +52,7 @@
       },
       handleClick(node) {
         console.log(node)
-      }
+      },
     }
   };
 </script>

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -29,4 +30,13 @@ public interface CategoryMapper extends Mapper<Category> {
     @Update("update tb_category set name=#{name} where id=#{id}")
     int updateCategory(@Param("id") Long id, @Param("name") String name);
 
+    /**
+     * 修改节点是否为父节点
+     * @return
+     */
+   @Update("update tb_category set is_parent=#{isParent} where id=#{id}")
+    int updateCategoryIsParent(@Param("isParent") Integer isParent,@Param("id") Long id);
+
+   @Select("SELECT * FROM tb_category c WHERE c.parent_id=#{pid}")
+    List<Category> queryAllByParentId(@Param("pid") Long pid);
 }
