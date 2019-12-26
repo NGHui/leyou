@@ -29,6 +29,8 @@
             data: this.$qs.stringify(node)
         }).then(res=>{
             this.$message.success("添加节点成功!")
+            //局部刷新页面
+
             console.log(res)
         }).catch(()=>{
             this.$message.error("添加节点失败!")

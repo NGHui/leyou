@@ -23,6 +23,7 @@ public interface BrandService {
      * @return
      */
     PageResult<Brand> queryBrandsByPage(String key, Integer page, Integer rows, String sortBy, Boolean desc);
+
     /**
      * 新增品牌
      *
@@ -31,9 +32,26 @@ public interface BrandService {
      */
     void saveBrand(Brand brand, List<Long> cids);
 
-    void updateBrand(Brand brand,Long cid);
+    /**
+     * 商品修改
+     *
+     * @param brand
+     * @param cid
+     */
+    void updateBrand(Brand brand, Long cid);
 
+    /**
+     * 删除分类
+     *
+     * @param id
+     */
     void deleteBrand(Long id);
 
 
+    /**
+     *
+     * @param cid
+     * @return
+     */
+    List<Brand> queryBrandsByCid(Long cid);
 }

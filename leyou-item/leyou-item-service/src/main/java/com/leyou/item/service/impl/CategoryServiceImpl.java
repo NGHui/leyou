@@ -6,9 +6,10 @@ import com.leyou.item.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 辉
@@ -22,6 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * 根据parentId查询子类目
+     *
      * @param pid
      * @return
      */
@@ -41,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
     public int addCategory(Category category) {
         System.out.println(category.getParentId());
         List<Category> categories = this.categoryMapper.queryAllByParentId(category.getParentId());
-        System.out.println("集合长度:"+categories.size());
-        if (categories.size()==0){
+        System.out.println("集合长度:" + categories.size());
+        if (categories.size() == 0) {
             //查出单个
             /*id: 0
             name: 新的节点
@@ -52,8 +54,8 @@ public class CategoryServiceImpl implements CategoryService {
             //保存当前的节点
             this.categoryMapper.insertSelective(category);
             //没有父节,修改查出的节点为父节点
-            return this.categoryMapper.updateCategoryIsParent(1,category.getParentId());
-        }else{
+            return this.categoryMapper.updateCategoryIsParent(1, category.getParentId());
+        } else {
             //查出集合
             /*id: 0
             name: 新的节点
@@ -66,7 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int editCategory(Long id, String name) {
-        return this.categoryMapper.updateCategory(id,name);
+        return this.categoryMapper.updateCategory(id, name);
     }
 
     @Override
@@ -86,9 +88,24 @@ public class CategoryServiceImpl implements CategoryService {
             this.categoryMapper.deleteByPrimaryKey(id);
             //删除子节点
             this.categoryMapper.deleteByParentId(id);
-        }else {
+        } else {
             //否,直接删除.
-             this.categoryMapper.deleteByPrimaryKey(id);
+            this.categoryMapper.deleteByPrimaryKey(id);
         }
     }
+    /**
+     * 通过id查询分类集合
+     * @param ids
+     * @return
+     */
+    public List<String> queryNamesByIds(List<Long> ids) {
+        List<Category> list = this.categoryMapper.selectByIdList(ids);
+        List<String> names = new ArrayList<>();
+        for (Category category : list) {
+            names.add(category.getName());
+        }
+        return names;
+        // return list.stream().map(category -> category.getName()).collect(Collectors.toList());
+    }
+
 }

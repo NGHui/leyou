@@ -110,10 +110,10 @@
         step: 1, // 子组件中的步骤线索引，默认为1
       }
     },
-    mounted() { // 渲染后执行
+    /*mounted() { // 渲染后执行
       // 查询数据
       this.getDataFromServer();
-    },
+    },*/
     watch: {
       pagination: { // 监视pagination属性的变化
         deep: true, // deep为true，会监视pagination的属性及属性中的对象属性变化
@@ -154,7 +154,10 @@
         // 把oldBrand变为null
         this.oldGoods = {};
       },
-      async editGoods(oldGoods) {
+      //同步请求需要同时满足所有的请求,才可以弹出组件
+      // async 异步请求添加为同步请求
+      //在方法面前添加async关键字,在请求面前添加 await
+        async editGoods(oldGoods) {
         // 发起请求，查询商品详情和skus
         oldGoods.spuDetail = await this.$http.loadData("/item/spu/detail/" + oldGoods.id);
         oldGoods.skus = await this.$http.loadData("/item/sku/list?id=" + oldGoods.id);

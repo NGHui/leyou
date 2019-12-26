@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+/**
+ * @author 辉
+ * 座右铭:坚持总能遇见更好的自己!
+ * @date 2019/12/11
+ */
+@RestController
 @RequestMapping("category")
 public class CategoryController {
 
@@ -20,6 +25,7 @@ public class CategoryController {
 
     /**
      * 根据父id查询子节点
+     *
      * @param pid
      * @return
      */
@@ -41,6 +47,7 @@ public class CategoryController {
 
     /**
      * 通过品牌id查询商品分类
+     *
      * @param bid
      * @return
      */
@@ -55,21 +62,23 @@ public class CategoryController {
 
     /**
      * 添加新的节点
+     *
      * @return
      */
     @PostMapping("add")
-    public ResponseEntity<Void> addCategory(Category category){
+    public ResponseEntity<Void> addCategory(Category category) {
         System.out.println(category.getId());
         System.out.println(category.getParentId());
         int i = this.categoryService.addCategory(category);
-        if (i>0){
+        if (i > 0) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
     @PutMapping("edit") //@RequestParam中的name 和 value 没有区别
-    public ResponseEntity<Void> editCategory(@RequestParam(value = "id")Long id,@RequestParam(name = "name") String name){
-        this.categoryService.editCategory(id,name);
+    public ResponseEntity<Void> editCategory(@RequestParam(value = "id") Long id, @RequestParam(name = "name") String name) {
+        this.categoryService.editCategory(id, name);
         return ResponseEntity.ok().build();
     }
 
@@ -78,6 +87,15 @@ public class CategoryController {
         this.categoryService.deleteCategory(id);
         return ResponseEntity.ok().build();
     }
+    /*cid: 76
+        generic: true
+        groupId: 1
+        name: "aaa"
+        numeric: true
+        searching: true
+        segments: "0-0"
+        unit: "aaa"*/
+
 
 
 }

@@ -81,6 +81,7 @@ public class BrandServiceImpl implements BrandService {
 
     /**
      * 商品修改
+     *
      * @param brand
      * @param cid
      */
@@ -94,6 +95,10 @@ public class BrandServiceImpl implements BrandService {
 
     }
 
+    /**
+     * 删除分类
+     * @param id
+     */
     @Transactional
     @Override
     public void deleteBrand(Long id) {
@@ -102,5 +107,11 @@ public class BrandServiceImpl implements BrandService {
         //再删除中间表
         this.brandMapper.deleteBrandAndCategory(id);
 
+    }
+
+    @Override
+    public List<Brand> queryBrandsByCid(Long cid) {
+        //通过中间表查询手机品牌信息
+        return this.brandMapper.selectBrandByCid(cid);
     }
 }
